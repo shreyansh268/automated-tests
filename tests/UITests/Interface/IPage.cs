@@ -1,6 +1,7 @@
 ﻿namespace UITests.Interface
 {
-    public class IPage
+    public interface IPage
     {
+        bool IsPageDisplayed();
     }
 }
