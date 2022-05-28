@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using SeleniumExtras.PageObjects;
+using OpenQA.Selenium.Support.UI;
 using System;
 using UITests.Interface;
 
@@ -9,19 +9,14 @@ namespace UITests.Pages
     public class PrimaryMenu : IPage
     {
         private readonly IWebDriver _driver;
-        #region elements
-        [FindsBy(How = How.LinkText, Using = "Company")]
-        private IWebElement CompanyLink;
-
-        [FindsBy(How = How.LinkText, Using = "Careers")]
-        private IWebElement CareersLink;
-
-        #endregion elements
+        private readonly WebDriverWait _wait;
 
         public PrimaryMenu(IWebDriver driver)
         {
             _driver = driver;
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
+
         public bool IsPageDisplayed()
         {
             throw new NotImplementedException();
@@ -29,8 +24,10 @@ namespace UITests.Pages
 
         public void NavigateToCareers()
         {
-            new Actions(_driver).MoveToElement(CompanyLink).Build().Perform();
-            CareersLink.Click();
+            var companyLink = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("menu-item-992")));
+            new Actions(_driver).MoveToElement(companyLink).Build().Perform();
+            var careerLink = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("menu-item-269")));
+            careerLink.Click();
         }
     }
 }

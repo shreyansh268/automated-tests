@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SeleniumExtras.PageObjects;
 using UITests.Base;
 using UITests.Pages;
 
@@ -12,8 +11,10 @@ namespace UITests
         public void CareerTest()
         {
             var menu = new PrimaryMenu(_driver);
-            PageFactory.InitElements(_driver, menu);
             menu.NavigateToCareers();
+
+            var careerPage = new CareerPage(_driver);
+            careerPage.NavigateToSecondManagerPosting();
         }
     }
 }
