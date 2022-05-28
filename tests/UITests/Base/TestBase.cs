@@ -14,7 +14,7 @@ namespace UITests.Base
         protected IWebDriver _driver;
         private ExtentReports _extentReports;
 
-        [ClassInitialize]
+        [TestInitialize]
         public void Initialize()
         {
             Init();
@@ -51,6 +51,19 @@ namespace UITests.Base
             var config = new ChromeConfig();
             var matchingVersion = config.GetMatchingBrowserVersion();
             new DriverManager().SetUpDriver(config, matchingVersion);
+        }
+
+        [TestCleanup]
+        public void Quit()
+        {
+            if (_driver != null)
+            {
+                _driver.Quit();
+            }
+            if (_extentReports != null)
+            {
+                _extentReports.Flush();
+            }
         }
     }
 }
