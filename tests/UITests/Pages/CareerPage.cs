@@ -14,7 +14,8 @@ namespace UITests.Pages
 
         #region locators
 
-        private const string CssJobTitle = "span.job a";
+        private const string CssJobTitle = "#aspnetForm span.job a";
+        private const string IdFrame = "HBIFRAME";
 
         #endregion locators
 
@@ -32,8 +33,21 @@ namespace UITests.Pages
 
         public void NavigateToSecondManagerPosting()
         {
+            SwitchToFrame();
             var allManagerPostings = GetAllManagerJobs();
             allManagerPostings[1].Click();
+            SwitchToDefault();
+        }
+
+        private void SwitchToFrame()
+        {
+            var frame = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id(IdFrame)));
+            _driver.SwitchTo().Frame(frame);
+        }
+
+        private void SwitchToDefault()
+        {
+            _driver.SwitchTo().DefaultContent();
         }
 
         private List<IWebElement> GetAllManagerJobs()
