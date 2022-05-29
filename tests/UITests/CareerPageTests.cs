@@ -14,7 +14,11 @@ namespace UITests
             menu.NavigateToCareers();
 
             var careerPage = new CareerPage(_driver);
-            careerPage.NavigateToSecondManagerPosting();
+            var posting = careerPage.NavigateToSecondManagerPosting();
+
+            var jobPage = new JobPage(_driver);
+            var actualPosting = jobPage.GetTitle();
+            Assert.AreEqual(posting, actualPosting, "Actual job title is not as expected");
         }
     }
 }

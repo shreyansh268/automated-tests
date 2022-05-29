@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,15 @@ namespace UITests.Pages
             return careerHeader.Displayed;
         }
 
-        public void NavigateToSecondManagerPosting()
+        public string NavigateToSecondManagerPosting()
         {
             SwitchToFrame();
             var allManagerPostings = GetAllManagerJobs();
-            allManagerPostings[1].Click();
-            SwitchToDefault();
+            var posting = allManagerPostings[1];
+            var title = posting.Text;
+            new Actions(_driver).MoveToElement(posting).Build().Perform();
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(posting)).Click();
+            return title;
         }
 
         private void SwitchToFrame()
