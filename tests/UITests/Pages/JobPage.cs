@@ -22,12 +22,20 @@ namespace UITests.Pages
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
+        /// <summary>
+        /// Check if job detail page is displayed
+        /// </summary>
+        /// <returns>True is displayed</returns>
         public bool IsPageDisplayed()
         {
             var title = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.ClassName(ClassJobTitle)));
             return title.Displayed;
         }
 
+        /// <summary>
+        /// Get title of job
+        /// </summary>
+        /// <returns>Title of the job</returns>
         public string GetTitle()
         {
             var title = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.ClassName(ClassJobTitle)));
