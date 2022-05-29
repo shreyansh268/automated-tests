@@ -26,12 +26,20 @@ namespace UITests.Pages
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
+        /// <summary>
+        /// Check if career page is displayed
+        /// </summary>
+        /// <returns>True if displayed</returns>
         public bool IsPageDisplayed()
         {
             var careerHeader = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.TagName("h1")));
             return careerHeader.Displayed;
         }
 
+        /// <summary>
+        /// Navigate to second manager posting from career page
+        /// </summary>
+        /// <returns>Title of the job being navigated to</returns>
         public string NavigateToSecondManagerPosting()
         {
             SwitchToFrame();
@@ -43,17 +51,28 @@ namespace UITests.Pages
             return title;
         }
 
+        /// <summary>
+        /// Switch to main iframe
+        /// </summary>
         private void SwitchToFrame()
         {
             var frame = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id(IdFrame)));
             _driver.SwitchTo().Frame(frame);
         }
 
+        /// <summary>
+        /// Switch to default frame on page
+        /// </summary>
         private void SwitchToDefault()
         {
             _driver.SwitchTo().DefaultContent();
         }
 
+        /// <summary>
+        /// Get all manger job listing elements on career page
+        /// </summary>
+        /// <returns>List of manager job listing web elements</returns>
+        /// <exception cref="NoSuchElementException"></exception>
         private List<IWebElement> GetAllManagerJobs()
         {
             var list = new List<IWebElement>();
@@ -74,6 +93,12 @@ namespace UITests.Pages
             }
         }
 
+        /// <summary>
+        /// Get all job listings on career page
+        /// </summary>
+        /// <returns>List of all job listing web elements</returns>
+        /// <exception cref="NoSuchElementException"></exception>
+        /// <exception cref="ElementNotVisibleException"></exception>
         private ReadOnlyCollection<IWebElement> GetAllJobs()
         {
             if (IsPageDisplayed())
